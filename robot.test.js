@@ -1,66 +1,84 @@
-const {newRobot, station, isWorkDay, prioritizeTasks}  = require("./robot.js").newRobot;
+const {newRobot, station, prioritizeTasks, isWorkday}  = require("./robot.js");
 
 // remove .skip when you're ready to implement the test
-test.skip('test_that_foreign_robot_needing_repairs_sent_to_station_1', () => {
-  // arrange
+test('test_that_foreign_robot_needing_repairs_sent_to_station_1', () => {
 
-  // act
+const robot = newRobot(true, true, false);
 
-  // assert
+const actual = station(robot);
+
+expect(actual).toEqual(1);
+
 });
 
-test.skip('test_that_vintage_robot_needing_repairs_sent_to_station_2', () => {
-  // arrange
+test('test_that_vintage_robot_needing_repairs_sent_to_station_2', () => {
 
-  // act
+const anotherRobot = newRobot(true,false,true);
 
-  // assert
+const result = station(anotherRobot);
+
+expect(result).toEqual(2);
+
 });
 
-test.skip('test_that_standard_robot_needing_repairs_sent_to_station_3', () => {
-  // arrange
+test('test_that_standard_robot_needing_repairs_sent_to_station_3', () => {
 
-  // act
+const otherRobot = newRobot(true,false,false);
 
-  // assert
+const expected = station(otherRobot);
+
+expect(expected).toEqual(3);
+
 });
 
-test.skip('test_that_robot_in_good_condition_sent_to_station_4', () => {
-  // arrange
+test('test_that_robot_in_good_condition_sent_to_station_4', () => {
 
-  // act
+const goodRobot = newRobot(false,false,false);
 
-  // assert
+const good = station(goodRobot);
+
+expect(good).toEqual(4);
+
 });
 
-test.skip('test_prioritize_tasks_with_empty_todo_list_returns_negative_one', () => {
-  // arrange
+test('test_prioritize_tasks_with_empty_todo_list_returns_negative_one', () => {
 
-  // act
+ const robot = newRobot(false,false,false);
 
-  // assert
+robot.todos = []
+
+ expect(prioritizeTasks(robot)).toEqual(-1);
+
 })
 
-test.skip('test_prioritize_tasks_with_todos_returns_max_todo_value', () => {
-  // arrange
+test('test_prioritize_tasks_with_todos_returns_max_todo_value', () => {
 
-  // act
+const nrobot = newRobot(true,true,false);
 
-  // assert
+nrobot.todos = [1,2,3,4,5,6]
+
+expect(prioritizeTasks(nrobot)).toEqual(6);
+
 });
 
-test.skip('test_workday_on_day_off_returns_false', () => {
-  // arrange
+test('test_workday_on_day_off_returns_false', () => {
+//
+const mrobot = newRobot(true,true,false);
 
-  // act
+mrobot.dayOff = 'Friday';
 
-  // assert
+const today = 'Friday';
+
+expect(isWorkday(mrobot,today)).toEqual(false);
 });
 
-test.skip('test_workday_not_day_off_returns_true', () => {
-  // arrange
+test('test_workday_not_day_off_returns_true', () => {
 
-  // act
+  const krobot = newRobot(true,true,false);
 
-  // assert
+  krobot.dayOff = 'Saturday';
+
+  const today = 'Friday';
+
+  expect(isWorkday(krobot,today)).toEqual(true);
 });
